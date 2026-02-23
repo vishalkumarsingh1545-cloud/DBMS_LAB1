@@ -1,72 +1,63 @@
+
+
 -- ==============================
--- 1. Department Table
+-- Department
 -- ==============================
 CREATE TABLE Department (
-    DepartmentID NUMBER PRIMARY KEY,
-    DepartmentName VARCHAR2(50),
-    OfficeLocation VARCHAR2(50)
+    DepartmentID VARCHAR(10) PRIMARY KEY,
+    DepartmentName VARCHAR(100),
+    OfficeLocation VARCHAR(100)
 );
 
 -- ==============================
--- 2. Student Table
--- ==============================
-CREATE TABLE Student (
-    StudentID NUMBER PRIMARY KEY,
-    Name VARCHAR2(50),
-    DateOfBirth DATE,
-    Gender VARCHAR2(10),
-    ContactNumber VARCHAR2(15),
-    DepartmentID NUMBER,
-    CONSTRAINT fk_student_department
-        FOREIGN KEY (DepartmentID)
-        REFERENCES Department(DepartmentID)
-);
-
--- ==============================
--- 3. Faculty Table
+-- Faculty
 -- ==============================
 CREATE TABLE Faculty (
-    FacultyID NUMBER PRIMARY KEY,
-    Name VARCHAR2(50),
-    Designation VARCHAR2(50),
-    Email VARCHAR2(50),
-    DepartmentID NUMBER,
-    CONSTRAINT fk_faculty_department
-        FOREIGN KEY (DepartmentID)
-        REFERENCES Department(DepartmentID)
+    FacultyID VARCHAR(10) PRIMARY KEY,
+    Name VARCHAR(100),
+    Designation VARCHAR(50),
+    Email VARCHAR(100),
+    DepartmentID VARCHAR(10),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
 );
 
 -- ==============================
--- 4. Course Table
+-- Student
+-- ==============================
+CREATE TABLE Student (
+    StudentID VARCHAR(10) PRIMARY KEY,
+    Name VARCHAR(100),
+    DateOfBirth DATE,
+    Gender CHAR(1),
+    ContactNumber VARCHAR(15),
+    DepartmentID VARCHAR(10),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
+);
+
+-- ==============================
+-- Course
 -- ==============================
 CREATE TABLE Course (
-    CourseID NUMBER PRIMARY KEY,
-    CourseName VARCHAR2(50),
-    Credits NUMBER,
-    DepartmentID NUMBER,
-    FacultyID NUMBER,
-    CONSTRAINT fk_course_department
-        FOREIGN KEY (DepartmentID)
-        REFERENCES Department(DepartmentID),
-    CONSTRAINT fk_course_faculty
-        FOREIGN KEY (FacultyID)
-        REFERENCES Faculty(FacultyID)
+    CourseID VARCHAR(10) PRIMARY KEY,
+    CourseName VARCHAR(100),
+    Credits INT,
+    DepartmentID VARCHAR(10),
+    FacultyID VARCHAR(10),
+    FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID),
+    FOREIGN KEY (FacultyID) REFERENCES Faculty(FacultyID)
 );
 
 -- ==============================
--- 5. Enrollment Table
+-- Enrollment
 -- ==============================
 CREATE TABLE Enrollment (
-    StudentID NUMBER,
-    CourseID NUMBER,
-    Semester NUMBER,
-    Grade VARCHAR2(5),
-    CONSTRAINT pk_enrollment
-        PRIMARY KEY (StudentID, CourseID),
-    CONSTRAINT fk_enroll_student
-        FOREIGN KEY (StudentID)
-        REFERENCES Student(StudentID),
-    CONSTRAINT fk_enroll_course
-        FOREIGN KEY (CourseID)
-        REFERENCES Course(CourseID)
+    StudentID VARCHAR(10),
+    CourseID VARCHAR(10),
+    Semester VARCHAR(20),
+    Grade CHAR(2),
+    PRIMARY KEY (StudentID, CourseID),
+    FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Course(CourseID)
 );
+
+COMMIT;
