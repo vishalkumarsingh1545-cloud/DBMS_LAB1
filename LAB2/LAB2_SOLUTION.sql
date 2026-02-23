@@ -1,17 +1,13 @@
-
-
--- ==============================
 -- Department
--- ==============================
+
 CREATE TABLE Department (
     DepartmentID VARCHAR(10) PRIMARY KEY,
     DepartmentName VARCHAR(100),
     OfficeLocation VARCHAR(100)
 );
 
--- ==============================
 -- Faculty
--- ==============================
+
 CREATE TABLE Faculty (
     FacultyID VARCHAR(10) PRIMARY KEY,
     Name VARCHAR(100),
@@ -21,9 +17,8 @@ CREATE TABLE Faculty (
     FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
 );
 
--- ==============================
 -- Student
--- ==============================
+
 CREATE TABLE Student (
     StudentID VARCHAR(10) PRIMARY KEY,
     Name VARCHAR(100),
@@ -34,9 +29,8 @@ CREATE TABLE Student (
     FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID)
 );
 
--- ==============================
 -- Course
--- ==============================
+
 CREATE TABLE Course (
     CourseID VARCHAR(10) PRIMARY KEY,
     CourseName VARCHAR(100),
@@ -47,9 +41,8 @@ CREATE TABLE Course (
     FOREIGN KEY (FacultyID) REFERENCES Faculty(FacultyID)
 );
 
--- ==============================
 -- Enrollment
--- ==============================
+
 CREATE TABLE Enrollment (
     StudentID VARCHAR(10),
     CourseID VARCHAR(10),
@@ -61,3 +54,4 @@ CREATE TABLE Enrollment (
 );
 
 COMMIT;
+
